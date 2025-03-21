@@ -12,7 +12,8 @@ import {
   Legend,
   Filler
 } from "chart.js";
-import "./App.css";
+import { onAuthStateChanged, signOut } from "firebase/auth"; // ADDED
+import { auth } from "./firebase";                         // ADDED
 
 ChartJS.register(
   CategoryScale,
@@ -28,6 +29,37 @@ ChartJS.register(
 function HomePage() {
   const navigate = useNavigate();
 
+  // Track the current user
+  const [currentUser, setCurrentUser] = useState(null); // ADDED
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in
+        setCurrentUser(user);
+      } else {
+        // No user is signed in
+        setCurrentUser(null);
+      }
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, []);
+
+  // ADDED: Log out function
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      // Optionally navigate somewhere if you want
+      navigate("/");
+    } catch (error) {
+      console.error("Logout error:", error);
+      alert(error.message);
+    }
+  };
+
+  // Existing state for the calculator...
   const [initialDeposit, setInitialDeposit] = useState(5000);
   const [years, setYears] = useState(10);
   const [rateOfReturn, setRateOfReturn] = useState(10);
@@ -95,36 +127,58 @@ function HomePage() {
           gap: "1rem"
         }}
       >
-        <button
-          onClick={() => navigate("/login")}
-          style={{
-            backgroundColor: "#fff",
-            color: "#1565C0",
-            border: "2px solid #1565C0",
-            borderRadius: "9999px",
-            padding: "0.75rem 1.5rem",
-            fontSize: "1rem",
-            fontWeight: 600,
-            cursor: "pointer"
-          }}
-        >
-          Log In
-        </button>
-        <button
-          onClick={() => navigate("/signup")}
-          style={{
-            backgroundColor: "#1565C0",
-            color: "#fff",
-            border: "none",
-            borderRadius: "9999px",
-            padding: "0.75rem 1.5rem",
-            fontSize: "1rem",
-            fontWeight: 600,
-            cursor: "pointer"
-          }}
-        >
-          Sign Up
-        </button>
+        {currentUser ? (
+          // If user is logged in, show Log Out button
+          <button
+            onClick={handleLogout}
+            style={{
+              backgroundColor: "#fff",
+              color: "#1565C0",
+              border: "2px solid #1565C0",
+              borderRadius: "9999px",
+              padding: "0.75rem 1.5rem",
+              fontSize: "1rem",
+              fontWeight: 600,
+              cursor: "pointer"
+            }}
+          >
+            Log Out
+          </button>
+        ) : (
+          // If no user, show Login and Sign Up buttons
+          <>
+            <button
+              onClick={() => navigate("/login")}
+              style={{
+                backgroundColor: "#fff",
+                color: "#1565C0",
+                border: "2px solid #1565C0",
+                borderRadius: "9999px",
+                padding: "0.75rem 1.5rem",
+                fontSize: "1rem",
+                fontWeight: 600,
+                cursor: "pointer"
+              }}
+            >
+              Log In
+            </button>
+            <button
+              onClick={() => navigate("/signup")}
+              style={{
+                backgroundColor: "#1565C0",
+                color: "#fff",
+                border: "none",
+                borderRadius: "9999px",
+                padding: "0.75rem 1.5rem",
+                fontSize: "1rem",
+                fontWeight: 600,
+                cursor: "pointer"
+              }}
+            >
+              Sign Up
+            </button>
+          </>
+        )}
       </div>
 
       {/* TITLE / SUBTITLE */}
@@ -313,7 +367,9 @@ function HomePage() {
                     y: {
                       beginAtZero: false,
                       grid: { color: "#eee" },
-                      ticks: { callback: (value) => "$" + Number(value).toLocaleString() }
+                      ticks: {
+                        callback: (value) => "$" + Number(value).toLocaleString()
+                      }
                     },
                     x: {
                       grid: { color: "#eee" },
@@ -337,7 +393,15 @@ function HomePage() {
   );
 }
 
-function calculateChartData(initialDeposit, years, rateOfReturn, compoundFrequency, contributionAmount, contributionFrequency) {
+// No changes here, just included for completeness.
+function calculateChartData(
+  initialDeposit,
+  years,
+  rateOfReturn,
+  compoundFrequency,
+  contributionAmount,
+  contributionFrequency
+) {
   const labels = [];
   const principalData = [];
   const totalData = [];
