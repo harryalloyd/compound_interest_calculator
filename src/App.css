@@ -1,10 +1,23 @@
 /* Overall container */
 .app-container {
   display: flex;
-  max-width: 1280px;
+  gap: 2rem;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  gap: 2rem;
+}
+
+/* At screen widths under 768px, stack vertically */
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+    align-items: center; /* center them if you like */
+  }
+
+  .app-container > div {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
 }
 
 /* Left panel with form inputs */

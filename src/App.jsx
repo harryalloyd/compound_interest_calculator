@@ -11,7 +11,7 @@ import {
   Legend,
   Filler
 } from "chart.js";
-import "./App.css";
+import "./App.css"; // We'll add a small media query here
 
 ChartJS.register(
   CategoryScale,
@@ -48,6 +48,8 @@ function App() {
 
     setFinalBalance(computedFinal);
 
+    // Two datasets: Principal (blue), Total Balance (green)
+    // fill: true (blue area to x-axis), fill: '-1' (green area down to blue)
     const newChartData = {
       labels,
       datasets: [
@@ -81,164 +83,201 @@ function App() {
   ]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        gap: "2rem",
-        maxWidth: 1200,
-        margin: "0 auto",
-        padding: "2rem"
-      }}
-    >
-      {/* LEFT PANEL */}
-      <div
+    <div>
+      {/* (6) Top Title/Subtitle */}
+      <header
         style={{
-          width: 300,
-          backgroundColor: "#fff",
-          padding: "2rem",
-          borderRadius: 8,
-          boxShadow: "0 2px 6px rgba(0,0,0,0.1)"
+          textAlign: "center",
+          marginBottom: "2rem",
+          marginTop: "30px" // add this
         }}
       >
-        <h2 style={{ marginBottom: "1.5rem", fontSize: "1.25rem" }}>
-          Investment details
-        </h2>
+        <h1 style={{ fontSize: "2rem", margin: 0 }}>Compound Interest Calculator</h1>
+        <p style={{ marginTop: "0.5rem", color: "#555" }}>
+          Enter your details to project your investment growth
+        </p>
+      </header>
 
-        {/* Each label + input in its own container for spacing */}
-        <div style={{ marginBottom: "1.5rem" }}>
-          <label style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}>
-            Initial deposit
-          </label>
-          <input
-            type="text"
-            value={initialDeposit}
-            onChange={(e) => setInitialDeposit(Number(e.target.value))}
-            style={{ width: "100%", padding: "0.5rem" }}
-          />
-        </div>
+      {/* Main Container */}
+      <div className="app-container" /* see App.css for media query */>
+        {/* LEFT PANEL */}
+        <div
+          style={{
+            width: 300,
+            backgroundColor: "#fff",
+            padding: "2rem",
+            borderRadius: 8,
+            boxShadow: "0 2px 6px rgba(0,0,0,0.1)"
+          }}
+        >
+          <h2 style={{ marginBottom: "1.5rem", fontSize: "1.25rem" }}>
+            Investment details
+          </h2>
 
-        <div style={{ marginBottom: "1.5rem" }}>
-          <label style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}>
-            Years of growth
-          </label>
-          <input
-            type="text"
-            value={years}
-            onChange={(e) => setYears(Number(e.target.value))}
-            style={{ width: "100%", padding: "0.5rem" }}
-          />
-        </div>
-
-        <div style={{ marginBottom: "1.5rem" }}>
-          <label style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}>
-            Estimated rate of return (%)
-          </label>
-          <input
-            type="text"
-            value={rateOfReturn}
-            onChange={(e) => setRateOfReturn(Number(e.target.value))}
-            style={{ width: "100%", padding: "0.5rem" }}
-          />
-        </div>
-
-        <div style={{ marginBottom: "1.5rem" }}>
-          <label style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}>
-            Compound frequency
-          </label>
-          <select
-            value={compoundFrequency}
-            onChange={(e) => setCompoundFrequency(e.target.value)}
-            style={{ width: "100%", padding: "0.5rem" }}
-          >
-            <option value="Monthly">Monthly</option>
-            <option value="Annually">Annually</option>
-          </select>
-        </div>
-
-        <div style={{ marginBottom: "1.5rem" }}>
-          <label style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}>
-            Contribution amount
-          </label>
-          <input
-            type="text"
-            value={contributionAmount}
-            onChange={(e) => setContributionAmount(Number(e.target.value))}
-            style={{ width: "100%", padding: "0.5rem" }}
-          />
-        </div>
-
-        <div style={{ marginBottom: "1.5rem" }}>
-          <label style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}>
-            Contribution frequency
-          </label>
-          <select
-            value={contributionFrequency}
-            onChange={(e) => setContributionFrequency(e.target.value)}
-            style={{ width: "100%", padding: "0.5rem" }}
-          >
-            <option value="Monthly">Monthly</option>
-            <option value="Annually">Annually</option>
-          </select>
-        </div>
-      </div>
-
-      {/* RIGHT PANEL */}
-      <div
-        style={{
-          flex: 1,
-          backgroundColor: "#fff",
-          borderRadius: 8,
-          boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-          padding: "1.5rem",
-          display: "flex",
-          flexDirection: "column"
-        }}
-      >
-        <h2 style={{ textAlign: "center", marginBottom: "1rem" }}>
-          Total Balance{" "}
-          {finalBalance.toLocaleString("en-US", {
-            style: "currency",
-            currency: "USD"
-          })}
-        </h2>
-
-        <div style={{ flex: 1 }}>
-          {chartData && (
-            <Line
-              data={chartData}
-              options={{
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                  legend: {
-                    position: "top"
-                  },
-                  title: {
-                    display: true,
-                    text: "Growth Over Time",
-                    font: {
-                      size: 16
-                    }
-                  }
-                },
-                scales: {
-                  y: {
-                    beginAtZero: false,
-                    ticks: {
-                      callback: (value) => "$" + Number(value).toLocaleString()
-                    }
-                  },
-                  x: {
-                    ticks: {
-                      maxRotation: 45,
-                      minRotation: 0
-                    }
-                  }
-                }
-              }}
-              height={400}
+          {/* Each label + input in its own container for spacing */}
+          <div style={{ marginBottom: "1.5rem" }}>
+            <label
+              style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}
+            >
+              Initial deposit
+            </label>
+            <input
+              type="text"
+              value={initialDeposit}
+              onChange={(e) => setInitialDeposit(Number(e.target.value))}
+              style={{ width: "100%", padding: "0.5rem" }}
             />
-          )}
+          </div>
+
+          <div style={{ marginBottom: "1.5rem" }}>
+            <label
+              style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}
+            >
+              Years of growth
+            </label>
+            <input
+              type="text"
+              value={years}
+              onChange={(e) => setYears(Number(e.target.value))}
+              style={{ width: "100%", padding: "0.5rem" }}
+            />
+          </div>
+
+          <div style={{ marginBottom: "1.5rem" }}>
+            <label
+              style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}
+            >
+              Estimated rate of return (%)
+            </label>
+            <input
+              type="text"
+              value={rateOfReturn}
+              onChange={(e) => setRateOfReturn(Number(e.target.value))}
+              style={{ width: "100%", padding: "0.5rem" }}
+            />
+          </div>
+
+          <div style={{ marginBottom: "1.5rem" }}>
+            <label
+              style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}
+            >
+              Compound frequency
+            </label>
+            <select
+              value={compoundFrequency}
+              onChange={(e) => setCompoundFrequency(e.target.value)}
+              style={{ width: "100%", padding: "0.5rem" }}
+            >
+              <option value="Monthly">Monthly</option>
+              <option value="Annually">Annually</option>
+            </select>
+          </div>
+
+          <div style={{ marginBottom: "1.5rem" }}>
+            <label
+              style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}
+            >
+              Contribution amount
+            </label>
+            <input
+              type="text"
+              value={contributionAmount}
+              onChange={(e) => setContributionAmount(Number(e.target.value))}
+              style={{ width: "100%", padding: "0.5rem" }}
+            />
+          </div>
+
+          <div style={{ marginBottom: "1.5rem" }}>
+            <label
+              style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}
+            >
+              Contribution frequency
+            </label>
+            <select
+              value={contributionFrequency}
+              onChange={(e) => setContributionFrequency(e.target.value)}
+              style={{ width: "100%", padding: "0.5rem" }}
+            >
+              <option value="Monthly">Monthly</option>
+              <option value="Annually">Annually</option>
+            </select>
+          </div>
+        </div>
+
+        {/* RIGHT PANEL */}
+        <div
+          style={{
+            flex: 1,
+            backgroundColor: "#fff",
+            borderRadius: 8,
+            boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+            padding: "1.5rem",
+            display: "flex",
+            flexDirection: "column"
+          }}
+        >
+          <h2 style={{ textAlign: "center", marginBottom: "1rem" }}>
+            Total Balance{" "}
+            {finalBalance.toLocaleString("en-US", {
+              style: "currency",
+              currency: "USD"
+            })}
+          </h2>
+
+          <div style={{ flex: 1 }}>
+            {chartData && (
+              <Line
+                data={chartData}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: {
+                      position: "bottom" // (8) Move legend to bottom
+                    },
+                    title: {
+                      display: true,
+                      text: "Growth Over Time",
+                      font: {
+                        size: 18 // (8) Make chart title bigger
+                      }
+                    }
+                  },
+                  scales: {
+                    y: {
+                      beginAtZero: false,
+                      // (8) Lighten grid lines
+                      grid: {
+                        color: "#eee"
+                      },
+                      ticks: {
+                        callback: (value) =>
+                          "$" + Number(value).toLocaleString()
+                      }
+                    },
+                    x: {
+                      grid: {
+                        color: "#eee"
+                      },
+                      ticks: {
+                        maxRotation: 45,
+                        minRotation: 0
+                      }
+                    }
+                  }
+                }}
+                height={400}
+              />
+            )}
+          </div>
+
+          {/* (7) Small subtitle/disclaimer */}
+          <div style={{ marginTop: "1rem", textAlign: "center", color: "#666" }}>
+            <small>
+              Disclaimer: This calculator provides an estimate for illustration
+              purposes only. Actual returns may vary.
+            </small>
+          </div>
         </div>
       </div>
     </div>
