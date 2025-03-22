@@ -128,24 +128,39 @@ function HomePage() {
         }}
       >
         {currentUser ? (
-          // If user is logged in, show Log Out button
-          <button
-            onClick={handleLogout}
-            style={{
-              backgroundColor: "#fff",
-              color: "#1565C0",
-              border: "2px solid #1565C0",
-              borderRadius: "9999px",
-              padding: "0.75rem 1.5rem",
-              fontSize: "1rem",
-              fontWeight: 600,
-              cursor: "pointer"
-            }}
-          >
-            Log Out
-          </button>
+          <>
+            <button
+              onClick={() => navigate("/dashboard")} // ADDED
+              style={{
+                backgroundColor: "#fff",
+                color: "#1565C0",
+                border: "2px solid #1565C0",
+                borderRadius: "9999px",
+                padding: "0.75rem 1.5rem",
+                fontSize: "1rem",
+                fontWeight: 600,
+                cursor: "pointer"
+              }}
+            >
+              Dashboard
+            </button>
+            <button
+              onClick={handleLogout}
+              style={{
+                backgroundColor: "#fff",
+                color: "#1565C0",
+                border: "2px solid #1565C0",
+                borderRadius: "9999px",
+                padding: "0.75rem 1.5rem",
+                fontSize: "1rem",
+                fontWeight: 600,
+                cursor: "pointer"
+              }}
+            >
+              Log Out
+            </button>
+          </>
         ) : (
-          // If no user, show Login and Sign Up buttons
           <>
             <button
               onClick={() => navigate("/login")}
