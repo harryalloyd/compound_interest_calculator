@@ -1,34 +1,36 @@
+// SignUpPage.jsx
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase";
-import { useNavigate } from "react-router-dom"; // ADDED
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify"; 
+import "react-toastify/dist/ReactToastify.css";
 
 function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const navigate = useNavigate(); // ADDED
+  const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
-      return;
+      return toast.error("Passwords do not match!");
     }
+
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      
-      // If sign-up succeeds:
-      alert("Sign-up successful! Please log in now."); // ADDED
-      setEmail("");              // ADDED
-      setPassword("");          // ADDED
-      setConfirmPassword("");   // ADDED
+      toast.success("Sign‑up successful! Please log in now.");
 
-      navigate("/login");       // ADDED - Redirect to login page
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+
+      navigate("/login");
     } catch (error) {
       console.error("Sign Up Error:", error);
-      alert(error.message);
+      toast.error(error.message);
     }
   };
 
@@ -47,62 +49,44 @@ function SignUpPage() {
       <h2 style={{ marginBottom: "1rem" }}>Sign Up</h2>
       <form onSubmit={handleSignUp}>
         <div style={{ marginBottom: "1rem", textAlign: "left" }}>
-          <label
-            style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}
-          >
+          <label style={{ display: "block", fontWeight: 600, marginBottom: "0.5rem" }}>
             Email
           </label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            style={{
-              width: "100%",
-              padding: "0.5rem",
-              border: "1px solid #ccc",
-              borderRadius: "4px"
-            }}
+            style={{ width: "100%", padding: "0.5rem", border: "1px solid #ccc", borderRadius: "4px" }}
             required
           />
         </div>
+
         <div style={{ marginBottom: "1rem", textAlign: "left" }}>
-          <label
-            style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}
-          >
+          <label style={{ display: "block", fontWeight: 600, marginBottom: "0.5rem" }}>
             Password
           </label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            style={{
-              width: "100%",
-              padding: "0.5rem",
-              border: "1px solid #ccc",
-              borderRadius: "4px"
-            }}
+            style={{ width: "100%", padding: "0.5rem", border: "1px solid #ccc", borderRadius: "4px" }}
             required
           />
         </div>
+
         <div style={{ marginBottom: "1rem", textAlign: "left" }}>
-          <label
-            style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}
-          >
+          <label style={{ display: "block", fontWeight: 600, marginBottom: "0.5rem" }}>
             Confirm Password
           </label>
           <input
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            style={{
-              width: "100%",
-              padding: "0.5rem",
-              border: "1px solid #ccc",
-              borderRadius: "4px"
-            }}
+            style={{ width: "100%", padding: "0.5rem", border: "1px solid #ccc", borderRadius: "4px" }}
             required
           />
         </div>
+
         <button
           type="submit"
           style={{
