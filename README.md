@@ -21,12 +21,11 @@ Full-stack React + TypeScript web app for projecting investment growth and visua
 
 ---
 
-##🚀 Getting started
+## 🚀 Getting started
 
-Run 'git clone https://github.com/harryalloyd/compound_interest_calculator.git'
-<br>
+```bash
+git clone https://github.com/harryalloyd/compound_interest_calculator.git
 cd compound_interest_calculator
-<br>
 
 
 ## Environment variables
