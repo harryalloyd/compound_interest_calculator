@@ -17,7 +17,7 @@ Full-stack React + TypeScript web app for projecting investment growth and visua
 ## Screenshots
 | Calculator | Dashboard | Compare View | Sign-Up |
 |------------|-----------|--------------|---------|
-| ![calculator](./screenshots/calculator.png) | ![dashboard](./screenshots/dashboard.png) | ![compare](./screenshots/compare.png) | ![signup](./screenshots/signup.png) |
+| ![Calculator](./images/calculator.png) | ![Dashboard](./images/dashboards.png) | ![Compare](./images/compare.png) | ![Sign-Up](./images/signup.png) |
 
 ---
 
