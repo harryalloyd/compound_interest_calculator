@@ -6,7 +6,7 @@ Full-stack React + TypeScript web app for projecting investment growth and visua
 
 ---
 
-## Features
+## ✨ Features
 - **Compound-interest calculator** – customise deposit, rate, term, contributions; real-time Chart.js plot splits principal vs. interest.
 - **Stock dashboard** – 5-year closing-price chart; overlay a second ticker for comparisons; pan/zoom & tooltips.
 - **Email auth** – Firebase Authentication for sign-up, log-in and session handling.
@@ -21,11 +21,12 @@ Full-stack React + TypeScript web app for projecting investment growth and visua
 
 ---
 
-## 🚀 Getting started
+## 🔑 Getting started
 
 ```bash
 git clone https://github.com/harryalloyd/compound_interest_calculator.git
 cd compound_interest_calculator
+npm insstall
 ```
 
 ## Environment variables
