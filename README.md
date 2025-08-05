@@ -2,7 +2,7 @@
 
 Full-stack React + TypeScript web app for projecting investment growth and visualising historical stock prices.
 
-**Live demo:** (https://personalfinancecalculator.netlify.app/)
+**Live demo:** https://personalfinancecalculator.netlify.app/
 
 ---
 
