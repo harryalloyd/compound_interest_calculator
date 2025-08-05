@@ -21,8 +21,13 @@ Full-stack React + TypeScript web app for projecting investment growth and visua
 
 ---
 
+🚀 Getting started
+git clone https://github.com/harryalloyd/compound_interest_calculator.git
+cd compound_interest_calculator
+
+
 ## Environment variables
-Create `.env` in the repo root:
+Create `.env` in the repo root and get an api key from [TwelveData API](https://twelvedata.com/?ref=yH5SV2P&utm_campaign=branded_search&utm_medium=cpc&utm_source=google&gad_source=1&gad_campaignid=22524074813&gbraid=0AAAAAo2o-AEAMUMtZfaUr1AsLBpwnt20v&gclid=Cj0KCQjw18bEBhCBARIsAKuAFEYpbhysxfPwuGbRg1pC8GpYE1QuTFSoLR1sWT-n0fcnQlInzUG-Y5caAt5tEALw_wcB) and Firebase
 <br>
 VITE_FIREBASE_API_KEY=
 <br>
@@ -39,6 +44,9 @@ VITE_FIREBASE_APP_ID=
 VITE_FIREBASE_MEASUREMENT_ID=
 <br>
 VITE_TWELVE_DATA_API_KEY=
+
+
+
 
 
 
