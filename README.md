@@ -23,8 +23,11 @@ Full-stack React + TypeScript web app for projecting investment growth and visua
 
 ## Environment variables
 Create `.env` in the repo root:
+<br>
 VITE_FIREBASE_API_KEY=
+<br>
 VITE_FIREBASE_AUTH_DOMAIN=
+<br>
 VITE_FIREBASE_PROJECT_ID=
 VITE_FIREBASE_STORAGE_BUCKET=
 VITE_FIREBASE_MESSAGING_SENDER_ID=
