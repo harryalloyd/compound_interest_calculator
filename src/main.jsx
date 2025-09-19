@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <App />
-      {/* 🛑 This mounts the toast “portal” once for your whole app */}
+      
       <ToastContainer
         position="top-right"
         autoClose={5000}
